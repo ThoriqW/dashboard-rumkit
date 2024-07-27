@@ -30,15 +30,15 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center bg-cover bg-center h-[100vh] bg-[url(/assets/bg-rumkit.jpg)]">
-        <form onSubmit={handleSubmit} className="w-1/2 lg:w-1/5 mx-auto p-5 bg-white bg-opacity-80" method="POST">
+      <div className="flex justify-center p-5 items-center bg-cover bg-center h-[100vh] bg-gradient-to-r from-green-600 to-sky-500">
+        <form onSubmit={handleSubmit} className="w-full lg:w-1/4 mx-auto p-5 bg-white bg-opacity-80" method="POST">
           <p className="text-center mb-3 text-xl font-bold">
             Rumkit Tk.III dr. Sindhu Trisno
           </p>
           <div className="flex justify-center">
             <img
               src={logo}
-              className="h-10 me-3 sm:h-20"
+              className="h-16 me-3 sm:h-20"
               alt="Rumkit Tk. III dr. Sindhu Trisno Logo"
             />
           </div>
