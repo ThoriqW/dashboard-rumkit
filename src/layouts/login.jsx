@@ -8,7 +8,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setAuth } = useContext(AuthContext);
-  const history = useNavigate ();
+  const history = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const Login = () => {
         "auth",
         JSON.stringify({ token: response.data.token, username })
       );
-      history.push("/dashboard");
+      history("/");
     } catch (e) {
       throw console.log(e);
     }

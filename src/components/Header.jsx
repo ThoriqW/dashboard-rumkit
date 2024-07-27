@@ -7,6 +7,10 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const logout = () => {
+
+  }
   return (
     <>
       <div className=" flex p-3 mb-4 rounded bg-gray-50 dark:bg-gray-800">
