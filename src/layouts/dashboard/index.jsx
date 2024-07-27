@@ -141,9 +141,9 @@ const Dashboard = () => {
       <Sidebar />
       <div className="p-4 sm:ml-64">
         <Header />
-        <div className="sm:flex">
+        <div className="flex gap-2">
           <div className="sm:flex items-center mb-2">
-            <p className="mr-5">Pilih Tanggal:</p>
+            <p className="mr-2">Pilih Tanggal:</p>
             <input
               type="date"
               name="dateRalan"
@@ -157,7 +157,7 @@ const Dashboard = () => {
             />
           </div>
           <div className="sm:flex items-center mb-2">
-            <p className="mr-5 sm:ml-5">sd</p>
+            <p className="mr-2">s.d</p>
             <input
               type="date"
               name="dateRalan"
