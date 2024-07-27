@@ -15,12 +15,8 @@ const Ralan = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/ralan`);
       const checkDate = (dateString) => {
-        const tgl_registrasi = new Date(dateString)
-          .toLocaleDateString()
-          .split("T")[0];
-        const localDate = new Date(currentDate)
-          .toLocaleDateString()
-          .split("T")[0];
+        const tgl_registrasi = new Date(dateString).toLocaleDateString('id-ID');
+        const localDate = new Date(currentDate).toLocaleDateString('id-ID');
         return localDate == tgl_registrasi;
       };
       const filteredData = await response.data.filter(

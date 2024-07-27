@@ -45,7 +45,7 @@ const Dashboard = () => {
     const startDate = new Date(startDateString);
     const endDate = new Date(endDateString);
     return eachDayOfInterval({ start: startDate, end: endDate }).map((date) =>
-      format(date, "d/M/yyyy")
+      date.toLocaleDateString("id-ID")
     );
   };
 
@@ -67,9 +67,7 @@ const Dashboard = () => {
           item.stts
       );
       const groupedData = filteredData.reduce((acc, item) => {
-        const date = new Date(item.tgl_registrasi)
-          .toLocaleDateString()
-          .split("T")[0];
+        const date = new Date(item.tgl_registrasi).toLocaleDateString('id-ID');
         if (!acc[date]) {
           acc[date] = 0;
         }
@@ -98,9 +96,7 @@ const Dashboard = () => {
         isWithinDateRange(item.tgl_masuk, startDate, endDate)
       );
       const groupedData = filteredData.reduce((acc, item) => {
-        const date = new Date(item.tgl_masuk)
-          .toLocaleDateString()
-          .split("T")[0];
+        const date = new Date(item.tgl_masuk).toLocaleDateString('id-ID');
         if (!acc[date]) {
           acc[date] = 0;
         }
