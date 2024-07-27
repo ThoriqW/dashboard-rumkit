@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { useNavigate  } from "react-router-dom";
-import logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
+import logo from "/assets/logo.png";
 import axios from "axios";
 import AuthContext from "../contexts/AuthContext";
 
@@ -30,17 +30,22 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-[100vh]">
-        <form onSubmit={handleSubmit} className="w-1/5 mx-auto" method="POST">
-          <img
-            src={logo}
-            className="h-10 me-3 sm:h-20"
-            alt="Rumkit Tk. III dr. Sindhu Trisno Logo"
-          />
+      <div className="flex justify-center items-center bg-cover bg-center h-[100vh] bg-[url(/assets/bg-rumkit.jpg)]">
+        <form onSubmit={handleSubmit} className="w-1/2 sm:w-1/5 mx-auto p-5 bg-white bg-opacity-80" method="POST">
+          <p className="text-center mb-3 text-xl font-bold">
+            Rumkit Tk.III dr. Sindhu Trisno
+          </p>
+          <div className="flex justify-center">
+            <img
+              src={logo}
+              className="h-10 me-3 sm:h-20"
+              alt="Rumkit Tk. III dr. Sindhu Trisno Logo"
+            />
+          </div>
           <div className="mb-5">
             <label
               htmlFor="username"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm text-gray-900 dark:text-white font-semibold"
             >
               Username
             </label>
@@ -56,7 +61,7 @@ const Login = () => {
           <div className="mb-5">
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
             >
               Password
             </label>

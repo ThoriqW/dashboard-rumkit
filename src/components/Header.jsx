@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import profilePicture from "../assets/profile.jpg";
+import profilePicture from "/assets/profile.jpg";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -9,7 +9,8 @@ const Header = () => {
   };
 
   const logout = () => {
-
+    localStorage.removeItem("auth");
+    window.location.reload()
   }
   return (
     <>
@@ -38,12 +39,12 @@ const Header = () => {
                 </li>
               </ul>
               <div className="py-1">
-                <a
-                  href="#"
+                <button
+                  onClick={logout}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Keluar
-                </a>
+                </button>
               </div>
             </div>
           )}
