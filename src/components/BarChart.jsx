@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ApexCharts from "apexcharts";
 
-const BarChart = ({ data1, nameData1, data2, nameData2, title, categories, total }) => {
+const BarChart = ({
+  data1,
+  nameData1,
+  data2,
+  nameData2,
+  title,
+  categories,
+  total,
+}) => {
   const series = [
     {
       name: nameData1,
@@ -44,8 +52,8 @@ const BarChart = ({ data1, nameData1, data2, nameData2, title, categories, total
         fontFamily: "Inter, sans-serif",
       },
       formatter: function (value) {
-        return "$" + value
-      }
+        return "$" + value;
+      },
     },
     states: {
       hover: {
@@ -117,7 +125,7 @@ const BarChart = ({ data1, nameData1, data2, nameData2, title, categories, total
 
   return (
     <>
-      <div className="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex justify-between items-center pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center">
           <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
             <svg
@@ -132,13 +140,13 @@ const BarChart = ({ data1, nameData1, data2, nameData2, title, categories, total
             </svg>
           </div>
           <div>
-            <h5 className="leading-none text-lg sm:text-2xl font-bold text-gray-900 dark:text-white pb-1">
+            <h5 className="text-sm sm:text-2xl font-bold text-gray-900 dark:text-white">
               {title}
             </h5>
           </div>
         </div>
         <div>
-          <span className="bg-green-100 text-green-800 text-md sm:text-xl font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
+          <span className="bg-green-100 text-green-800 text-xs sm:text-xl font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
             {total}
           </span>
         </div>

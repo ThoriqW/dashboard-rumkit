@@ -143,7 +143,7 @@ const Dashboard = () => {
         <Header />
         <div className="flex gap-2">
           <div className="sm:flex items-center mb-2">
-            <p className="mr-2">Pilih Tanggal:</p>
+            <p className="mr-2 mb-2">Pilih Tanggal:</p>
             <input
               type="date"
               name="dateRalan"
@@ -157,7 +157,7 @@ const Dashboard = () => {
             />
           </div>
           <div className="sm:flex items-center mb-2">
-            <p className="mr-2">s.d</p>
+            <p className="mr-2 mb-2">s.d</p>
             <input
               type="date"
               name="dateRalan"

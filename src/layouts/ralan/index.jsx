@@ -15,8 +15,8 @@ const Ralan = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/ralan`);
       const checkDate = (dateString) => {
-        const tgl_registrasi = new Date(dateString).toLocaleDateString('id-ID');
-        const localDate = new Date(currentDate).toLocaleDateString('id-ID');
+        const tgl_registrasi = new Date(dateString).toLocaleDateString("id-ID");
+        const localDate = new Date(currentDate).toLocaleDateString("id-ID");
         return localDate == tgl_registrasi;
       };
       const filteredData = await response.data.filter(
@@ -24,10 +24,11 @@ const Ralan = () => {
           checkDate(item.tgl_registrasi) && item.nm_poli !== "-" && item.stts
       );
       const groupedData = filteredData.reduce((acc, item) => {
-        if (!acc[item.nm_poli]) {
-          acc[item.nm_poli] = 0;
+        const poliName = item.nm_poli.replace(/^POLIKLINIK\s*/, ""); // Remove "POLIKLINIK " from the beginning
+        if (!acc[poliName]) {
+          acc[poliName] = 0;
         }
-        acc[item.nm_poli]++;
+        acc[poliName]++;
         return acc;
       }, {});
       setseriesData(Object.values(groupedData));
