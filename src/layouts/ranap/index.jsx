@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { formatInTimeZone } from "date-fns-tz";
+import { parseISO, format } from "date-fns";
 import Sidebar from "../../components/Sidebar";
 import axios from "axios";
 import BarChart from "../../components/BarChart";
@@ -8,16 +10,19 @@ const Ranap = () => {
   const [categories, setCategories] = useState([]);
   const [seriesData, setseriesData] = useState([]);
   const [currentDate, setCurrentDate] = useState(
-    new Date().toISOString().substring(0, 10)
+    format(new Date(), "yyyy-MM-dd")
   );
 
   const getDataRalan = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/ranap`);
       const checkDate = (dateString) => {
-        const tgl_masuk = new Date(dateString).toLocaleDateString('id-ID');
-        const localDate = new Date(currentDate).toLocaleDateString('id-ID');
-        return localDate == tgl_masuk;
+        const tgl_masuk = parseISO(dateString);
+        const localDate = parseISO(currentDate);
+        return (
+          formatInTimeZone(localDate, "Asia/Makassar", "yyyy-MM-dd") ==
+          formatInTimeZone(tgl_masuk, "Asia/Makassar", "yyyy-MM-dd")
+        );
       };
       const filteredData = await response.data.filter((item) =>
         checkDate(item.tgl_masuk)
@@ -60,14 +65,13 @@ const Ranap = () => {
             id="dateRalan"
             defaultValue={currentDate}
             onChange={(e) => {
+              setseriesData([]);
               setCurrentDate(e.target.value);
             }}
           />
         </div>
         <div className="p-5 mb-4 rounded bg-gray-50 h-[500px] dark:bg-gray-800">
-          {seriesData.length > 0 &&
-          categories.length > 0 &&
-          currentDate !== "" ? (
+          {seriesData.length > 0 && categories.length > 0 ? (
             <BarChart
               data1={seriesData}
               categories={categories}

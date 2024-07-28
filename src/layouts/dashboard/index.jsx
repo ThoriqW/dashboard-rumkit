@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import BarChart from "../../components/BarChart";
-import { eachDayOfInterval, format } from "date-fns";
+import { eachDayOfInterval, format, parseISO } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import axios from "axios";
 import Header from "../../components/Header";
 
@@ -9,20 +10,24 @@ const Dashboard = () => {
   const [categories, setCategories] = useState([]);
   const [seriesDataRalan, setseriesDataRalan] = useState([]);
   const [seriesDataRanap, setseriesDataRanap] = useState([]);
-  const [startDate, setStartDate] = useState(
-    new Date().toISOString().substring(0, 10)
-  );
-  const [endDate, setEndDate] = useState(
-    new Date().toISOString().substring(0, 10)
-  );
+  const [startDate, setStartDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
 
   const isWithinDateRange = (dateString, startDateString, endDateString) => {
-    const date = new Date(dateString);
-    const startDate = new Date(startDateString);
-    const endDate = new Date(endDateString);
-    startDate.setHours(0, 0, 0, 0);
-    endDate.setHours(23, 59, 59, 999);
-    return date >= startDate && date <= endDate;
+    const date = parseISO(dateString);
+    const startDate = parseISO(startDateString);
+    const endDate = parseISO(endDateString);
+    // console.log(
+    //   formatInTimeZone(date, "Asia/Makassar", "yyyy-MM-dd"),
+    //   formatInTimeZone(startDate, "Asia/Makassar", "yyyy-MM-dd"),
+    //   formatInTimeZone(endDate, "Asia/Makassar", "yyyy-MM-dd")
+    // );
+    return (
+      formatInTimeZone(date, "Asia/Makassar", "yyyy-MM-dd") >=
+        formatInTimeZone(startDate, "Asia/Makassar", "yyyy-MM-dd") &&
+      formatInTimeZone(date, "Asia/Makassar", "yyyy-MM-dd") <=
+        formatInTimeZone(endDate, "Asia/Makassar", "yyyy-MM-dd")
+    );
   };
 
   const sortedData = (data) => {
@@ -45,7 +50,7 @@ const Dashboard = () => {
     const startDate = new Date(startDateString);
     const endDate = new Date(endDateString);
     return eachDayOfInterval({ start: startDate, end: endDate }).map((date) =>
-      date.toLocaleDateString("id-ID")
+      formatInTimeZone(date, "Asia/Makassar", "dd/MM/yyyy")
     );
   };
 
@@ -67,7 +72,11 @@ const Dashboard = () => {
           item.stts
       );
       const groupedData = filteredData.reduce((acc, item) => {
-        const date = new Date(item.tgl_registrasi).toLocaleDateString('id-ID');
+        const date = formatInTimeZone(
+          item.tgl_registrasi,
+          "Asia/Makassar",
+          "dd/MM/yyyy"
+        );
         if (!acc[date]) {
           acc[date] = 0;
         }
@@ -96,7 +105,11 @@ const Dashboard = () => {
         isWithinDateRange(item.tgl_masuk, startDate, endDate)
       );
       const groupedData = filteredData.reduce((acc, item) => {
-        const date = new Date(item.tgl_masuk).toLocaleDateString('id-ID');
+        const date = formatInTimeZone(
+          item.tgl_masuk,
+          "Asia/Makassar",
+          "dd/MM/yyyy"
+        );
         if (!acc[date]) {
           acc[date] = 0;
         }
