@@ -64,11 +64,11 @@ const Sidebar = () => {
             <img
               src={logo}
               className="h-10 me-3 sm:h-14"
-              alt="Rumkit Tk. III dr. Sindhu Trisno Logo"
+              alt="Rumkit"
             />
             <p className="self-center text-xl font-semibold dark:text-white">
-              Rumkit Tk. III
-              <br /> dr. Sindhu Trisno
+              Rumkit
+              <br />
             </p>
           </div>
           <ul className="space-y-2 font-medium">
