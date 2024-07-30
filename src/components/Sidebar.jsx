@@ -60,7 +60,7 @@ const Sidebar = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <div className="flex mb-5">
+          <div className="flex mb-5 items-center">
             <img
               src={logo}
               className="h-10 me-3 sm:h-14"

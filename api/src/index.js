@@ -16,7 +16,9 @@ const authenticateToken = require("../middelware/auth");
 dotenv.config();
 
 // Middelware
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,11 +29,11 @@ app.use(logger);
 
 // Routes
 app.use("/api/auth", authRouters);
-app.use("/api/pasien", patientRouters);
-app.use("/api/ralan", ralanRouters);
-app.use("/api/ranap", ranapRouters);
+app.use("/api/pasien", authenticateToken, patientRouters);
+app.use("/api/ralan", authenticateToken, ralanRouters);
+app.use("/api/ranap", authenticateToken, ranapRouters);
 
 // Listening Port
 app.listen(process.env.PORT, () => {
-  console.info("Server is Running ...");
+  console.info(`Server Running Port: ${process.env.PORT}`);
 });

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { formatInTimeZone } from "date-fns-tz";
 import { parseISO, format } from "date-fns";
 import Sidebar from "../../components/Sidebar";
 import BarChart from "../../components/BarChart";
 import axios from "axios";
 import Header from "../../components/Header";
+import AuthContext from "../../contexts/AuthContext";
 
 const Ralan = () => {
   const [categories, setCategories] = useState([]);
@@ -13,9 +14,14 @@ const Ralan = () => {
     format(new Date(), "yyyy-MM-dd")
   );
 
+  const { auth } = useContext(AuthContext);
+
   const getDataRalan = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/ralan`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/ralan`,
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
       const checkDate = (dateString) => {
         const tgl_registrasi = parseISO(dateString);
         const localDate = parseISO(currentDate);
@@ -24,6 +30,7 @@ const Ralan = () => {
           formatInTimeZone(tgl_registrasi, "Asia/Makassar", "yyyy-MM-dd")
         );
       };
+
       const filteredData = await response.data.filter(
         (item) =>
           checkDate(item.tgl_registrasi) && item.nm_poli !== "-" && item.stts

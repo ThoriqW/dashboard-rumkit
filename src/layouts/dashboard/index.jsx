@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Sidebar from "../../components/Sidebar";
 import BarChart from "../../components/BarChart";
 import { eachDayOfInterval, format, parseISO } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 import axios from "axios";
 import Header from "../../components/Header";
+import AuthContext from "../../contexts/AuthContext";
 
 const Dashboard = () => {
   const [categories, setCategories] = useState([]);
@@ -13,15 +14,12 @@ const Dashboard = () => {
   const [startDate, setStartDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
 
+  const { auth } = useContext(AuthContext);
+
   const isWithinDateRange = (dateString, startDateString, endDateString) => {
     const date = parseISO(dateString);
     const startDate = parseISO(startDateString);
     const endDate = parseISO(endDateString);
-    // console.log(
-    //   formatInTimeZone(date, "Asia/Makassar", "yyyy-MM-dd"),
-    //   formatInTimeZone(startDate, "Asia/Makassar", "yyyy-MM-dd"),
-    //   formatInTimeZone(endDate, "Asia/Makassar", "yyyy-MM-dd")
-    // );
     return (
       formatInTimeZone(date, "Asia/Makassar", "yyyy-MM-dd") >=
         formatInTimeZone(startDate, "Asia/Makassar", "yyyy-MM-dd") &&
@@ -64,7 +62,10 @@ const Dashboard = () => {
 
   const getDataRalan = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/ralan`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/ralan`,
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
       const filteredData = response.data.filter(
         (item) =>
           isWithinDateRange(item.tgl_registrasi, startDate, endDate) &&
@@ -83,14 +84,10 @@ const Dashboard = () => {
         acc[date]++;
         return acc;
       }, {});
-
-      console.log(sortedData(groupedData));
-
+      // console.log(sortedData(groupedData));
       const allDates = getAllDatesInRange(startDate, endDate);
       const preparedData = prepareData(sortedData(groupedData), allDates);
-
-      console.log(sortedData(preparedData));
-
+      // console.log(sortedData(preparedData));
       setseriesDataRalan(Object.values(sortedData(preparedData)));
       setCategories(Object.keys(sortedData(preparedData)));
     } catch (e) {
@@ -100,7 +97,10 @@ const Dashboard = () => {
 
   const getDataRanap = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/ranap`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/ranap`,
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
       const filteredData = response.data.filter((item) =>
         isWithinDateRange(item.tgl_masuk, startDate, endDate)
       );
@@ -116,14 +116,10 @@ const Dashboard = () => {
         acc[date]++;
         return acc;
       }, {});
-
-      console.log(sortedData(groupedData));
-
+      // console.log(sortedData(groupedData));
       const allDates = getAllDatesInRange(startDate, endDate);
       const preparedData = prepareData(sortedData(groupedData), allDates);
-
-      console.log(sortedData(preparedData));
-
+      // console.log(sortedData(preparedData));
       setseriesDataRanap(Object.values(sortedData(preparedData)));
       setCategories(Object.keys(sortedData(preparedData)));
     } catch (e) {

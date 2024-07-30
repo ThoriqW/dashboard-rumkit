@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { formatInTimeZone } from "date-fns-tz";
 import { parseISO, format } from "date-fns";
 import Sidebar from "../../components/Sidebar";
 import axios from "axios";
 import BarChart from "../../components/BarChart";
 import Header from "../../components/Header";
+import AuthContext from "../../contexts/AuthContext";
 
 const Ranap = () => {
   const [categories, setCategories] = useState([]);
@@ -13,9 +14,14 @@ const Ranap = () => {
     format(new Date(), "yyyy-MM-dd")
   );
 
+  const { auth } = useContext(AuthContext);
+
   const getDataRalan = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/ranap`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/ranap`,
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
       const checkDate = (dateString) => {
         const tgl_masuk = parseISO(dateString);
         const localDate = parseISO(currentDate);
