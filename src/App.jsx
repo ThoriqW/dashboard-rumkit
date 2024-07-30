@@ -19,6 +19,9 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/ralan" element={<Ralan />} />
             <Route path="/ranap" element={<Ranap />} />
+            <Route path="/farmasi" element={<PageNotFound />} />
+            <Route path="/igd" element={<PageNotFound />} />
+            <Route path="/radiologi" element={<PageNotFound />} />
           </Route>
         </Routes>
       </AuthProvider>
