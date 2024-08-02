@@ -44,7 +44,6 @@ const adminLogin = (req, res) => {
         const token = jwt.sign(
           { id: user.decryptedUser, name: user.nama },
           jwtSecretKey,
-          { expiresIn: "1h" }
         );
 
         return res

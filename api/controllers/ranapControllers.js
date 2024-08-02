@@ -9,7 +9,8 @@ const getRanap = async (_, res) => {
             kamar_inap.stts_pulang,
             reg_periksa.no_rkm_medis,
             pasien.nm_pasien,
-            bangsal.nm_bangsal
+            bangsal.nm_bangsal,
+            penjab.png_jawab
         FROM 
             kamar_inap
         INNER JOIN 
@@ -18,6 +19,8 @@ const getRanap = async (_, res) => {
             pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis
         INNER JOIN 
             kamar ON kamar_inap.kd_kamar = kamar.kd_kamar
+        INNER JOIN 
+            penjab ON reg_periksa.kd_pj = penjab.kd_pj
         INNER JOIN 
             bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal`;
         connection.query(sql, (err, result) => {

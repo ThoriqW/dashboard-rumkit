@@ -61,14 +61,9 @@ const Sidebar = () => {
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
           <div className="flex mb-5 items-center">
-            <img
-              src={logo}
-              className="h-10 me-3 sm:h-14"
-              alt="Rumkit"
-            />
-            <p className="self-center text-xl font-semibold dark:text-white">
-              Rumkit
-              <br />
+            <img src={logo} className="h-10 me-3 sm:h-14" alt="Rumkit" />
+            <p className="self-center text-lg font-semibold dark:text-white">
+              Rumkit Tk. III dr. Sindhu Trisno
             </p>
           </div>
           <ul className="space-y-2 font-medium">
@@ -185,7 +180,10 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
-              <button onClick={logout} className="flex items-center mt-5 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <button
+                onClick={logout}
+                className="flex items-center mt-5 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"

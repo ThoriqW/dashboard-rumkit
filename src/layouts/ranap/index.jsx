@@ -69,6 +69,7 @@ const Ranap = () => {
             type="date"
             name="dateRalan"
             id="dateRalan"
+            className="border-gray-300 text-gray-600"
             defaultValue={currentDate}
             onChange={(e) => {
               setseriesData([]);

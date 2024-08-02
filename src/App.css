@@ -6,5 +6,11 @@
 
 .active {
     color: blue;
-    background-color: #f3f4f6e7;
+    background-color: #e5e7eb;
 }
+
+.lato-regular {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }

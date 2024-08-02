@@ -2,7 +2,7 @@ const connection = require("../config/db");
 
 const getRalan = async (_, res) => {
   try {
-    const sql = `SELECT reg_periksa.*, poliklinik.nm_poli, pasien.pekerjaan FROM reg_periksa JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis WHERE reg_periksa.status_lanjut = 'Ralan'`;
+    const sql = `SELECT reg_periksa.*, poliklinik.nm_poli, pasien.nm_pasien, pasien.pekerjaan, penjab.png_jawab FROM reg_periksa JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis JOIN penjab ON reg_periksa.kd_pj=penjab.kd_pj  WHERE reg_periksa.status_lanjut = 'Ralan'`;
     connection.query(sql, (err, result) => {
       if (err) {
         // console.log(err);
