@@ -5,9 +5,9 @@ import { eachDayOfInterval, format, parseISO } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 import axios from "axios";
 import Header from "../../components/Header";
-import AuthContext from "../../contexts/AuthContext";
 import TablePasien from "./TablePasien";
-import Spinner from "../../components/Spinner";
+import Loading from "../../components/Loading";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [categories, setCategories] = useState([]);
@@ -18,8 +18,6 @@ const Dashboard = () => {
 
   const [pasienRalan, setPasienRalan] = useState([]);
   const [pasienRanap, setPasienRanap] = useState([]);
-
-  const { auth } = useContext(AuthContext);
 
   const isWithinDateRange = (dateString, startDateString, endDateString) => {
     const date = parseISO(dateString);
@@ -67,9 +65,11 @@ const Dashboard = () => {
 
   const getDataRalan = async () => {
     try {
+      const savedAuth = Cookies.get("auth");
+      const { data } = JSON.parse(savedAuth);
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/ralan`,
-        { headers: { Authorization: `Bearer ${auth.token}` } }
+        { headers: { Authorization: `Bearer ${data}` } }
       );
       const filteredData = response.data.filter(
         (item) =>
@@ -103,14 +103,16 @@ const Dashboard = () => {
 
   const getDataRanap = async () => {
     try {
+      const savedAuth = Cookies.get("auth");
+      const { data } = JSON.parse(savedAuth);
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/ranap`,
-        { headers: { Authorization: `Bearer ${auth.token}` } }
+        { headers: { Authorization: `Bearer ${data}` } }
       );
       const filteredData = response.data.filter((item) =>
         isWithinDateRange(item.tgl_masuk, startDate, endDate)
       );
-      setPasienRanap(filteredData)
+      setPasienRanap(filteredData);
       const groupedData = filteredData.reduce((acc, item) => {
         const date = formatInTimeZone(
           item.tgl_masuk,
@@ -203,13 +205,13 @@ const Dashboard = () => {
               title="Grafik Pasien Ranap dan Ralan"
             />
           ) : (
-            <Spinner />
+            <Loading />
           )}
         </div>
         {pasienRalan.length > 0 && pasienRanap.length > 0 ? (
           <TablePasien ralan={pasienRalan} ranap={pasienRanap} />
         ) : (
-          <Spinner />
+          <Loading />
         )}
       </div>
     </>

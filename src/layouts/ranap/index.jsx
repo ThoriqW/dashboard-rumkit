@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import axios from "axios";
 import BarChart from "../../components/BarChart";
 import Header from "../../components/Header";
-import AuthContext from "../../contexts/AuthContext";
+import Cookies from "js-cookie";
 
 const Ranap = () => {
   const [categories, setCategories] = useState([]);
@@ -14,13 +14,13 @@ const Ranap = () => {
     format(new Date(), "yyyy-MM-dd")
   );
 
-  const { auth } = useContext(AuthContext);
-
   const getDataRalan = async () => {
     try {
+      const savedAuth = Cookies.get("auth");
+      const { data } = JSON.parse(savedAuth);
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/ranap`,
-        { headers: { Authorization: `Bearer ${auth.token}` } }
+        { headers: { Authorization: `Bearer ${data}` } }
       );
       const checkDate = (dateString) => {
         const tgl_masuk = parseISO(dateString);

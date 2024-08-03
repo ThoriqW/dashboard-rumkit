@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
 import logo from "/assets/logo.png";
 
@@ -17,6 +18,14 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
+    const savedAuth = Cookies.get("auth");
+    if (savedAuth) {
+    } else {
+      window.location.reload();
+    }
+  }, []);
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -24,7 +33,7 @@ const Sidebar = () => {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("auth");
+    Cookies.remove("auth");
     window.location.reload();
   };
   return (

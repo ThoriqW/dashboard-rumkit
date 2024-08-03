@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import logo from "/assets/logo.png";
 import axios from "axios";
-import AuthContext from "../contexts/AuthContext";
-import Spinner from "../components/Spinner";
+import Loading from "../components/Loading";
+import AuthContext from "../context/AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,21 +12,30 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { setAuth } = useContext(AuthContext);
+
   const history = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/login`,
         { username, password }
       );
-      setAuth({ token: response.data.token, username });
-      localStorage.setItem(
+      console.log(response.data.token);
+      Cookies.set(
         "auth",
-        JSON.stringify({ token: response.data.token, username })
+        JSON.stringify({
+          data: response.data.token,
+          expiresAt: Date.now() + 60 * 60 * 1000,
+        }),
+        {
+          expires: 1 / 24,
+        }
       );
+      setAuth(response.data.token);
       history("/");
     } catch (e) {
       setError("Username atau password salah");
@@ -45,7 +55,7 @@ const Login = () => {
           <div className="flex justify-center">
             <img src={logo} className="h-16 me-3 sm:h-20" alt="" />
           </div>
-          <p className="text-center mb-3 text-xl font-bold">Rumkit</p>
+          <p className="text-center mb-3 text-xl font-bold">Rumkit Tk. III dr. Sindhu Trisno</p>
           <div className="mb-5">
             <label
               htmlFor="username"
@@ -79,7 +89,7 @@ const Login = () => {
             />
           </div>
           {loading ? (
-            <Spinner />
+            <Loading />
           ) : (
             <button
               type="submit"

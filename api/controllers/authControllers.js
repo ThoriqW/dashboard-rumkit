@@ -44,7 +44,10 @@ const adminLogin = (req, res) => {
         const token = jwt.sign(
           { id: user.decryptedUser, name: user.nama },
           jwtSecretKey,
+          { expiresIn: "1h" }
         );
+
+        res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
 
         return res
           .status(200)

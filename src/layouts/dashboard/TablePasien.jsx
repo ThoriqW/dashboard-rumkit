@@ -5,6 +5,8 @@ const TablePasien = ({ ralan, ranap }) => {
   const [currentItemRalan, setCurrentItemRalan] = useState([]);
   const [currentPageRanap, setCurrentPageRanap] = useState(1);
   const [currentItemRanap, setCurrentItemRanap] = useState([]);
+  const [searchItemRanap, setSearchItemRanap] = useState("");
+  const [searchItemRalan, setSearchItemRalan] = useState("");
   const itemsPerPage = 10;
   const totalPageRalan = Math.ceil(ralan.length / itemsPerPage);
   const totalPageRanap = Math.ceil(ranap.length / itemsPerPage);
@@ -12,14 +14,12 @@ const TablePasien = ({ ralan, ranap }) => {
   const setItemRanap = () => {
     const indexOfLastItem = currentPageRanap * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    console.log(ranap.slice(indexOfFirstItem, indexOfLastItem));
     setCurrentItemRanap(ranap.slice(indexOfFirstItem, indexOfLastItem));
   };
 
   const setItemRalan = () => {
     const indexOfLastItem = currentPageRalan * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    console.log(ranap.slice(indexOfFirstItem, indexOfLastItem));
     setCurrentItemRalan(ralan.slice(indexOfFirstItem, indexOfLastItem));
   };
 
@@ -35,15 +35,42 @@ const TablePasien = ({ ralan, ranap }) => {
     if (currentPage < totalPageRalan && pasien == "ralan") {
       setCurrentPageRalan((prevPage) => prevPage + 1);
     } else if (currentPage < totalPageRanap && pasien == "ranap") {
-        setCurrentPageRanap((prevPage) => prevPage + 1);
+      setCurrentPageRanap((prevPage) => prevPage + 1);
     }
   };
 
   const handlePrevPageChange = (currentPage, pasien) => {
     if (currentPage > 1 && pasien == "ralan") {
       setCurrentPageRalan((prevPage) => prevPage - 1);
+    } else if (currentPage > 1 && pasien == "ranap") {
+      setCurrentPageRanap((prevPage) => prevPage - 1);
     }
   };
+
+  const handleSearchRalan = (value) => {
+    setSearchItemRalan(value)
+    if(value != ""){
+      const filteredRalan = ralan.filter((item) => {
+        return Object.values(item).join("").toLowerCase().includes(searchItemRalan.toLowerCase())
+      })
+      setCurrentItemRalan(filteredRalan);
+    } else {
+      setItemRalan();
+    }
+  }
+
+  const handleSearchRanap = (value) => {
+    setSearchItemRanap(value)
+    if(value != ""){
+      const filteredRanap = ranap.filter((item) => {
+        return Object.values(item).join("").toLowerCase().includes(searchItemRanap.toLowerCase())
+      })
+      setCurrentItemRanap(filteredRanap);
+    } else {
+      setItemRanap();
+    }
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -51,7 +78,10 @@ const TablePasien = ({ ralan, ranap }) => {
           <p className="text-lg font-medium mb-3">Pasien Rawat Jalan</p>
           <div className="relative overflow-x-auto">
             <div className="pb-4 dark:bg-gray-900">
-              <label htmlFor="table-search" className="sr-only">
+              <label
+                htmlFor="ralan-search"
+                className="sr-only"
+              >
                 Search
               </label>
               <div className="relative mt-1">
@@ -74,9 +104,11 @@ const TablePasien = ({ ralan, ranap }) => {
                 </div>
                 <input
                   type="text"
-                  id="table-search"
+                  id="ralan-search"
+                  value={searchItemRalan}
+                  onChange={(e) => handleSearchRalan(e.target.value)}
                   className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Cari Pasien"
+                  placeholder="Cari Pasien Ralan"
                 />
               </div>
             </div>
@@ -91,9 +123,6 @@ const TablePasien = ({ ralan, ranap }) => {
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Jenis Bayar
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Status Periksa
                   </th>
                 </tr>
               </thead>
@@ -113,7 +142,6 @@ const TablePasien = ({ ralan, ranap }) => {
                     <td className="px-6 py-4">
                       {item.png_jawab.replace("BAYAR", "")}
                     </td>
-                    <td className="px-6 py-4">{item.stts}</td>
                   </tr>
                 ))}
               </tbody>
@@ -156,7 +184,11 @@ const TablePasien = ({ ralan, ranap }) => {
           <p className="text-lg font-medium mb-3">Pasien Rawat Inap</p>
           <div className="relative overflow-x-auto">
             <div className="pb-4 dark:bg-gray-900">
-              <label htmlFor="table-search" className="sr-only">
+              <label
+                htmlFor="ranap-search"
+                value={searchItemRanap}
+                className="sr-only"
+              >
                 Search
               </label>
               <div className="relative mt-1">
@@ -179,7 +211,9 @@ const TablePasien = ({ ralan, ranap }) => {
                 </div>
                 <input
                   type="text"
-                  id="table-search"
+                  id="ranap-search"
+                  value={searchItemRanap}
+                  onChange={(e) => handleSearchRanap(e.target.value)}
                   className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Cari Pasien"
                 />
@@ -196,9 +230,6 @@ const TablePasien = ({ ralan, ranap }) => {
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Jenis Bayar
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Status
                   </th>
                 </tr>
               </thead>
@@ -219,7 +250,6 @@ const TablePasien = ({ ralan, ranap }) => {
                       <td className="px-6 py-4">
                         {item.png_jawab.replace("BAYAR", "")}
                       </td>
-                      <td className="px-6 py-4">{item.stts}</td>
                     </tr>
                   ))
                 ) : (
@@ -241,16 +271,26 @@ const TablePasien = ({ ralan, ranap }) => {
                 </span>{" "}
                 of{" "}
                 <span className="font-semibold text-gray-900 dark:text-white">
-                  {currentItemRanap.length}
+                  {ranap.length}
                 </span>{" "}
                 Entries
               </span>
 
               <div className="inline-flex mt-2 xs:mt-0">
-                <button className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <button
+                  onClick={() =>
+                    handlePrevPageChange(currentPageRanap, "ranap")
+                  }
+                  className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
                   Prev
                 </button>
-                <button onClick={() => handleNextPageChange(currentPageRalan, "ranap")} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <button
+                  onClick={() =>
+                    handleNextPageChange(currentPageRanap, "ranap")
+                  }
+                  className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
                   Next
                 </button>
               </div>
