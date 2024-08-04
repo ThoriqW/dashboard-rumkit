@@ -24,7 +24,6 @@ const Login = () => {
         `${import.meta.env.VITE_API_URL}/auth/login`,
         { username, password }
       );
-      console.log(response.data.token);
       Cookies.set(
         "auth",
         JSON.stringify({

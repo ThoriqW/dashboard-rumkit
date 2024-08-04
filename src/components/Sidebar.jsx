@@ -17,10 +17,14 @@ const Sidebar = () => {
     }
   };
 
+  const logout = () => {
+    Cookies.remove("auth");
+    window.location.reload();
+  };
+
   useEffect(() => {
     const savedAuth = Cookies.get("auth");
-    if (savedAuth) {
-    } else {
+    if (!savedAuth) {
       window.location.reload();
     }
   }, []);
@@ -32,10 +36,6 @@ const Sidebar = () => {
     };
   }, []);
 
-  const logout = () => {
-    Cookies.remove("auth");
-    window.location.reload();
-  };
   return (
     <>
       <button

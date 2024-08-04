@@ -11,8 +11,10 @@ import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [categories, setCategories] = useState([]);
+
   const [seriesDataRalan, setseriesDataRalan] = useState([]);
   const [seriesDataRanap, setseriesDataRanap] = useState([]);
+
   const [startDate, setStartDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
 
@@ -164,13 +166,14 @@ const Dashboard = () => {
             <p className="mr-2 mb-2">Pilih Tanggal:</p>
             <input
               type="date"
-              name="dateRalan"
-              id="dateRalan"
+              name="date"
               className="border-gray-300 text-gray-600"
               defaultValue={startDate}
               onChange={(e) => {
                 setseriesDataRalan([]);
                 setseriesDataRanap([]);
+                setPasienRalan([]);
+                setPasienRanap([]);
                 setStartDate(e.target.value);
               }}
             />
@@ -179,19 +182,20 @@ const Dashboard = () => {
             <p className="mr-2 mb-2">s.d</p>
             <input
               type="date"
-              name="dateRalan"
-              id="dateRalan"
+              name="date"
               className="border-gray-300 text-gray-600"
               defaultValue={endDate}
               onChange={(e) => {
                 setseriesDataRalan([]);
                 setseriesDataRanap([]);
+                setPasienRalan([]);
+                setPasienRanap([]);
                 setEndDate(e.target.value);
               }}
             />
           </div>
         </div>
-        <div className="p-5 mb-4 rounded bg-gray-50 h-[500px] dark:bg-gray-800">
+        <div className="p-5 mb-4 rounded bg-gray-50 h-[450px] dark:bg-gray-800">
           {seriesDataRalan.length > 0 &&
           seriesDataRanap.length > 0 &&
           categories.length > 0 ? (
@@ -208,11 +212,10 @@ const Dashboard = () => {
             <Loading />
           )}
         </div>
-        {pasienRalan.length > 0 && pasienRanap.length > 0 ? (
-          <TablePasien ralan={pasienRalan} ranap={pasienRanap} />
-        ) : (
-          <Loading />
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <TablePasien data={pasienRalan} title="Pasien Rawat Jalan" />
+          <TablePasien data={pasienRanap} title="Pasien Rawat Inap" />
+        </div>
       </div>
     </>
   );
