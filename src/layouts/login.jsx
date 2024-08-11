@@ -54,7 +54,9 @@ const Login = () => {
           <div className="flex justify-center">
             <img src={logo} className="h-16 me-3 sm:h-20" alt="" />
           </div>
-          <p className="text-center mb-3 text-xl font-bold">Rumkit Tk. III dr. Sindhu Trisno</p>
+          <p className="text-center mb-3 text-xl font-bold">
+            Rumkit Tk. III dr. Sindhu Trisno
+          </p>
           <div className="mb-5">
             <label
               htmlFor="username"
