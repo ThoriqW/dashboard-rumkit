@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Loading from "../../components/Loading";
+import { useEffect, useState } from "react";
 
 const TablePasien = ({ data, title }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +28,7 @@ const TablePasien = ({ data, title }) => {
     }
   };
 
-  const handleSearchRalan = (value) => {
+  const handleSearch = (value) => {
     setSearchItem(value);
     if (value != "") {
       const filteredRalan = data.filter((item) => {
@@ -75,7 +74,7 @@ const TablePasien = ({ data, title }) => {
               <input
                 type="text"
                 value={searchItem}
-                onChange={(e) => handleSearchRalan(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
                 className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Cari Pasien Ralan"
               />

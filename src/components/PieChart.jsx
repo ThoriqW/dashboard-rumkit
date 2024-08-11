@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import ApexCharts from "apexcharts";
 
 const PieChart = ({data, title, }) => {

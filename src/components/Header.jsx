@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import profilePicture from "/assets/profile.jpg";
 
 const Header = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
 import logo from "/assets/logo.png";
@@ -21,13 +21,6 @@ const Sidebar = () => {
     Cookies.remove("auth");
     window.location.reload();
   };
-
-  useEffect(() => {
-    const savedAuth = Cookies.get("auth");
-    if (!savedAuth) {
-      window.location.reload();
-    }
-  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

@@ -2,11 +2,11 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
-import Dashboard from "./layouts/dashboard";
-import Login from "./layouts/login";
-import Ralan from "./layouts/ralan";
-import Ranap from "./layouts/ranap";
-import PageNotFound from "./layouts/pageNotFound";
+import Dashboard from "./layouts/Dashboard";
+import Login from "./layouts/Login";
+import Ralan from "./layouts/Ralan";
+import Ranap from "./layouts/Ranap";
+import PageNotFound from "./layouts/PageNotFound";
 
 export default function App() {
   return (
