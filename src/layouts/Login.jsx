@@ -54,7 +54,7 @@ const Login = () => {
           <img src={logo} className="h-16 me-3 sm:h-20" alt="" />
         </div>
         <p className="text-center mb-3 text-xl font-bold">
-          Rumkit Tk. III dr. Sindhu Trisno
+          Rumkit Tk. IV dr. Yanto, Sp.OT
         </p>
         <div className="mb-5">
           <label

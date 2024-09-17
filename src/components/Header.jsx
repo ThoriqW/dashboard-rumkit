@@ -11,7 +11,7 @@ const Header = () => {
         />
         <marquee className="ml-5 w-full text-green-800 text-xs sm:text-xl font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
           {" "}
-          <p>Selamat Datang di Dashboard Rumkit Tk. III dr. Sindhu Trisno</p>
+          <p>Selamat Datang di Dashboard Rumkit Tk. IV dr. Yanto, Sp.OT</p>
         </marquee>
       </div>
     </>

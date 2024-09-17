@@ -65,7 +65,7 @@ const Sidebar = () => {
           <div className="flex mb-5 items-center">
             <img src={logo} className="h-10 me-3 sm:h-14" alt="Rumkit" />
             <p className="self-center text-lg font-semibold dark:text-white">
-              Rumkit Tk. III dr. Sindhu Trisno
+              Rumkit Tk. IV dr. Yanto, Sp.OT
             </p>
           </div>
           <ul className="space-y-2 font-medium">
