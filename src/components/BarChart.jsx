@@ -39,7 +39,7 @@ const BarChart = ({
     },
     plotOptions: {
       bar: {
-        horizontal: false,
+        horizontal: true,
         columnWidth: "70%",
         borderRadiusApplication: "end",
         borderRadius: 8,

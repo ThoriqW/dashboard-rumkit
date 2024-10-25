@@ -37,6 +37,7 @@ export const getDataRalan = async (
       acc[poliName]++;
       return acc;
     }, {});
+    console.log(groupedData);
     setseriesData(Object.values(groupedData));
     setCategories(Object.keys(groupedData));
   } catch (e) {

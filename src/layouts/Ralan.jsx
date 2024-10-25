@@ -61,12 +61,12 @@ const Ralan = () => {
             <Loading />
           ) : (
             <BarChart
-            data1={seriesData}
-            categories={categories}
-            total={`${totalRalan()} Pasien`}
-            nameData1="Rawat Jalan"
-            title="Grafik Ralan Harian"
-          />
+              data1={seriesData}
+              categories={categories}
+              total={`${totalRalan()} Pasien`}
+              nameData1="Rawat Jalan"
+              title="Grafik Ralan Harian"
+            />
           )}
         </div>
       </div>

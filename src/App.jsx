@@ -6,6 +6,7 @@ import Dashboard from "./layouts/Dashboard";
 import Login from "./layouts/Login";
 import Ralan from "./layouts/Ralan";
 import Ranap from "./layouts/Ranap";
+import Farmasi from "./layouts/Farmasi";
 import PageNotFound from "./layouts/PageNotFound";
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/ralan" element={<Ralan />} />
             <Route path="/ranap" element={<Ranap />} />
-            <Route path="/farmasi" element={<PageNotFound />} />
+            <Route path="/farmasi" element={<Farmasi />} />
             <Route path="/igd" element={<PageNotFound />} />
             <Route path="/radiologi" element={<PageNotFound />} />
           </Route>

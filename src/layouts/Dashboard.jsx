@@ -98,7 +98,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="p-5 mb-4 rounded bg-gray-50 h-[450px] dark:bg-gray-800">
+        <div className="p-5 mb-4 rounded bg-gray-50 h-[500px] dark:bg-gray-800">
           {isLoading ? (
             <Loading />
           ) : (
